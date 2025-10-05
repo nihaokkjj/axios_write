@@ -1,15 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const multipart = require('connect-multiparty')
-const atob = require('atob')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
-const path = require('path')
 
-require('./server2')
+const path = require('path')
+const webpackHotMiddleware = require('webpack-hot-middleware') 
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -23,7 +19,6 @@ app.use(
     }
   })
 )
-
 app.use(webpackHotMiddleware(compiler))
 
 app.use(
@@ -35,33 +30,15 @@ app.use(
 )
 
 app.use(bodyParser.json())
-// app.use(bodyParser.text())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser())
 
-app.use(
-  multipart({
-    uploadDir: path.resolve(__dirname, 'upload-file')
-  })
-)
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 const router = express.Router()
 
 registerSimpleRouter()
 
 registerBaseRouter()
-
-registerErrorRouter()
-
-registerExtendRouter()
-
-registerInterceptorRouter()
-
-registerConfigRouter()
-
-registerCancelRouter()
-
-registerMoreRouter()
 
 app.use(router)
 

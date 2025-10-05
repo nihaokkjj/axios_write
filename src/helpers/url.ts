@@ -1,4 +1,4 @@
-import { isDate, isObject } from "./util"
+import { isDate, isPlainObject } from "./util"
 
 function encode(val: string): string {
   //encodeURIComponent(val): 这是 JavaScript 的内置函数，
@@ -9,7 +9,7 @@ function encode(val: string): string {
   .replace(/%40/g, '@')
   .replace(/%3A/g, ':')
   .replace(/%24/g, '$')
-  .replace(/%2ig/, ',')
+  .replace(/%2C/ig, ',')
   .replace(/%20/g, '+')
   .replace(/%5B/ig, '[')
   .replace(/%5D/ig, ']')
@@ -37,7 +37,7 @@ export function buildURL(url: string, params?: any): string {
     values.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
       parts.push(`${encode(key)}=${encode(val)}`)

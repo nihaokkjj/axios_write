@@ -5,7 +5,22 @@ export type Method =
 
 export interface AxiosRequestConfig {
   url: string
-  method?: string //默认为get请求
-  data?:any
-  params?:any
+  method?: Method
+  data?: any
+  params?: any
+  headers?: any
+  responseType?: XMLHttpRequestResponseType
+}
+
+export interface AxiosResponse {
+  data: any
+  atatus: number
+  statusText: string
+  headers: any
+  config: AxiosRequestConfig
+  request: any
+}
+
+export interface AxiosPromise extends Promise<AxiosResponse> {
+  
 }
