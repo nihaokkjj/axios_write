@@ -1,49 +1,19 @@
+import { AxiosError } from '../../src/helpers/error'
 import axios from '../../src/index'
 
-// axios({
-//   method: 'get',
-//   url: '/base/get',
-//   params: {
-//     foo: ['bar', 'baz']
-//   }
-// })
-
-// axios({
-//   method: 'get',
-//   url: '/base/get',
-//   params: {
-//     foo: {
-//       bar: 'baz'
-//     }
-//   }
-// })
-
-// const date = new Date()
-
-// axios({
-//   method: 'get',
-//   url: '/base/get',
-//   params: {
-//     date
-//   }
-// })
-
-// axios({
-//   method: 'get',
-//   url: '/base/get',
-//   params: {
-//     foo: '@:$, '
-//   }
-// })
-
-// axios({
-//   method: 'get',
-//   url: '/base/get',
-//   params: {
-//     foo: 'bar',
-//     baz: null
-//   }
-// })
+setTimeout(() => {
+  axios({
+    method: 'get',
+    url: '/base/get',
+  }).then(res => {
+    console.log(res)
+  }).catch((e: AxiosError) => {
+    console.log(e.message, '11error')
+    console.log(e.config)
+    console.log(e.request)
+    console.log(e.code)
+  })
+}, 3000)
 
 axios({
   method: 'post',
@@ -54,7 +24,6 @@ axios({
     b: 2
   }
 }).then((res) => {
-  
   console.log(res)
 })
 

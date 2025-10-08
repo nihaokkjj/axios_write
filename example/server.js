@@ -40,6 +40,14 @@ registerSimpleRouter()
 
 registerBaseRouter()
 
+registerExtendRouter()
+
+registerErrorRouter()
+
+registerExtendRouter()
+
+registerInterceptorRouter()
+
 app.use(router)
 
 const port = process.env.PORT || 8080
@@ -57,7 +65,12 @@ function registerSimpleRouter() {
 
 function registerBaseRouter() {
   router.get('/base/get', function(req, res) {
-    res.json(req.query)
+    if (Math.random() > 0.5) {
+      res.json(req.query)
+    } else {
+      res.status(500)
+      res.end()
+    }
   })
 
   router.post('/base/post', function(req, res) {
