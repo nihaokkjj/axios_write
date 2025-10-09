@@ -11,7 +11,6 @@ function fromVal2Start(val1: any, val2: any): any {
   if (typeof val2 !== 'undefined') {
     return val2
   }
-  return val1
 }
 
 function deepMergeStrat(val1: any, val2: any): any {
@@ -36,7 +35,8 @@ stratKeysFromVal2.forEach(key => {
   strats[key] = fromVal2Start
 })
 
-export default function mergeConfig(config1: AxiosRequestConfig,
+export default function mergeConfig(
+  config1: AxiosRequestConfig,
   config2: AxiosRequestConfig): AxiosRequestConfig {
     if (!config2) config2 = {}
 
@@ -47,7 +47,7 @@ export default function mergeConfig(config1: AxiosRequestConfig,
       mergeField(key)
     }
     for (let key in config1) {
-      if (!config2) mergeField(key)
+      if (!config2[key]) mergeField(key)
     }
     //合并
     function mergeField(key: string): void {

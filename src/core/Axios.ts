@@ -2,7 +2,7 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse,
    Method, ResolveFn, RejectedFn } from "../types";
 import dispatchResquest from "./dispatchResquest";
 import InterceptorManager from "./interceptorManager";
-import mergeConfig from "./mergeCOnfig";
+import mergeConfig from "./mergeConfig";
 
 interface Interceptors {
   request: InterceptorManager<AxiosRequestConfig>
@@ -31,15 +31,17 @@ export default class Axios {
   //支持重载, 多种方式调用
   //只对函数内部做修改, 实际接口并未改变
   request(url: any, config?: any) {
+    
     if(typeof url === 'string') {
       if (!config) {
         config = {}
       }
       config.url = url
     } else {
-      config = url
+      config = url //只传入了一个参数
     }
 
+    //配置默认headers参数
     config = mergeConfig(this.defaults, config)
 
     //拦截器链
